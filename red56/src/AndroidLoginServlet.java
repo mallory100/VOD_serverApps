@@ -66,7 +66,7 @@ public class AndroidLoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 json.put("info", "success");
-                json.put("token", rs.getObject("token"));
+               // json.put("token", rs.getObject("token"));
                 System.out.println(json);                                  
                 
                 

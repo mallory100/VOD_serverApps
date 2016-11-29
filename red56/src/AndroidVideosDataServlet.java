@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import com.google.gson.JsonPrimitive;
 
 
@@ -29,14 +30,25 @@ public class AndroidVideosDataServlet extends HttpServlet{
       JSONObject jsonResponse = new JSONObject();  
       JSONArray data = new JSONArray();
       JSONArray data1= new JSONArray();
+      
+      
+      Enumeration paramNames = request.getParameterNames();
+
+          String paramName = (String) paramNames.nextElement();
+
+          System.out.println(paramName);
+          String[]  paramValues = request.getParameterValues(paramName);
+          System.out.println(paramValues);
+
             
         try {
     
            // PrintWriter out = response.getWriter();
             Connection con = DBConnectionHandler.getConnection();
-            String sql = "SELECT videoname, videourl, videodescription FROM videos";
+            String sql = "SELECT videoname, videourl, videodescription FROM videos WHERE category=?";
             
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, paramValues[0]);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) 
